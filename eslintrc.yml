@@ -10,7 +10,6 @@ env:
   node: true
   jest: true
   browser: true
-  es2020: true
 
 parser: babel-eslint
 
@@ -19,8 +18,9 @@ extends:
   - 'plugin:jest/recommended'
 
 parserOptions:
-  ecmaVersion: 11 
   sourceType: module
+  allowImportExportEverywhere: true
+  codeFrame: true
 
 rules:
   no-console: 
