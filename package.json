@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --colors",
-    "build": "webpack"
+    "test": "jest --colors"
   },
   "repository": {
     "type": "git",
