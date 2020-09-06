@@ -1,41 +1,32 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const fileURLToPath = require('url');
-//const dirname = require('path');
-
-
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = dirname(__filename);
-
-module.exports = {
-  entry: `${__dirname}/src/index.js`,
-  output: {
-    path: `${__dirname}/dist`,
-    filename: 'bundle.js',
-  },
-  mode: process.env.NODE_ENV || 'development',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+import HtmlWebpackPlugin from 'html-webpack-plugin'; //// eslint-disable-line no-use-before-define
+export const entry = `${__dirname}/src/index.js`;
+export const output = {
+  path: `${__dirname}/dist`,
+  filename: 'bundle.js',
+};
+export const mode = process.env.NODE_ENV || 'development';
+export const module = {
+  rules: [
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
       },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'template.html',
-    }),
+    },
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    },
   ],
-  devServer: {  // configuration for webpack-dev-server
-    contentBase: './src',  //source of static assets
-    port: 8000, // port to run dev-server
-  }, 
+};
+export const plugins = [
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: 'template.html',
+  }),
+];
+export const devServer = {
+  contentBase: './src',
+  port: 8000,
 };
