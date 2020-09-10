@@ -1,28 +1,24 @@
-
 ---
+
+parser: babel-eslint
 
 plugins:
   - jest
-  - babel
   - import
+  - babel
 
 env:
-  node: true
-  jest: true
+  es2020: true
   browser: true
-
-parser: babel-eslint
 
 extends:
   - 'airbnb-base'
   - 'plugin:jest/recommended'
 
+
 parserOptions:
+  ecmaVersion: 2020
   sourceType: module
-  allowImportExportEverywhere: true
-  codeFrame: true
 
 rules:
-  no-console: 
-  import/extensions: 0
-  
+  no-console: 0
