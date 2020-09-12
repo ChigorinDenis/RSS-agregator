@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --colors",
-    "build": "m -rf dist NODE_ENV=production npx webpack"
+    "test": "jest --colors"
   },
   "repository": {
     "type": "git",
