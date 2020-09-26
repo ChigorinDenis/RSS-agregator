@@ -3,5 +3,11 @@
   "public": false,
   "github": {
     "enabled": false
-  }
+  },
+  "builds": [
+    { "src": "./src/**", "use": "@now/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "src/$1" }
+  ]
 }
