@@ -1,10 +1,10 @@
 import * as yup from 'yup';
 import axios from 'axios';
+import i18next from 'i18next';
 import url from 'url';
 import parser from './parser';
 import view from './view';
-
-const schema = yup.string().url();
+import en from './locales/en';
 
 export default () => {
   const state = {
@@ -21,17 +21,25 @@ export default () => {
       posts: [],
     },
   };
+  i18next.init({
+    lng: 'en',
+    debug: true,
+    resources: {
+      en,
+    },
+  });
+  const schema = yup.string().url();
+  const proxy = 'cors-anywhere.herokuapp.com';
   const watchedState = view(state);
   const form = document.querySelector('.rss-form');
   const input = form.querySelector('input');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const link = input.value;
-    const proxy = 'cors-anywhere.herokuapp.com';
     schema.validate(link)
       .then((value) => {
         if (watchedState.links.includes(value)) {
-          throw new Error('url has already added');
+          throw new Error(i18next.t('msg.errors.dublicatedLink'));
         }
         return value;
       })

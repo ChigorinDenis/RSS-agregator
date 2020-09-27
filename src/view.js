@@ -1,4 +1,5 @@
 import onChange from 'on-change';
+import i18next from 'i18next';
 
 const updateTextMsg = (text, type) => {
   const msg = document.querySelector('.msg');
@@ -42,7 +43,7 @@ export default (state) => (
           const divRow = document.createElement('div');
           divRow.className = 'row';
           divRow.setAttribute('id', 'content');
-          updateTextMsg('Rss has been loaded', 'success');
+          updateTextMsg(i18next.t('msg.success'), 'success');
           const { feeds, posts } = state.data;
           feeds.forEach((feed) => {
             const h2 = document.createElement('h2');
