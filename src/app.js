@@ -3,8 +3,10 @@ import axios from 'axios';
 import i18next from 'i18next';
 import url from 'url';
 import parser from './parser';
+import identify from './identifier';
 import view from './view';
 import en from './locales/en';
+import update from './updator';
 
 export default () => {
   const state = {
@@ -28,11 +30,13 @@ export default () => {
       en,
     },
   });
+
   const schema = yup.string().url();
   const proxy = 'cors-anywhere.herokuapp.com';
   const watchedState = view(state);
   const form = document.querySelector('.rss-form');
   const input = form.querySelector('input');
+  update(watchedState);
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const link = input.value;
@@ -58,7 +62,9 @@ export default () => {
         watchedState.addingProcess.submitDisabled = false;
         watchedState.addingProcess.inputDisabled = false;
         const { feeds, posts } = watchedState.data;
-        const newFeed = parser(response.data);
+        const data = parser(response.data);
+        const newFeed = identify(data);
+        newFeed.feed.link = response.request.responseURL;
         watchedState.data = {
           feeds: [newFeed.feed, ...feeds],
           posts: [...newFeed.posts, ...posts],

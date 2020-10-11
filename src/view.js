@@ -1,5 +1,6 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
+import { groupBy } from 'lodash';
 
 const updateTextMsg = (text, type) => {
   const msg = document.querySelector('.msg');
@@ -8,9 +9,15 @@ const updateTextMsg = (text, type) => {
 };
 
 const makePost = (item) => {
-  const { link, description, title } = item;
+  const {
+    link,
+    description,
+    title,
+    id,
+  } = item;
   const li = document.createElement('li');
   li.className = 'list-group-item';
+  li.setAttribute('id', id);
   const a = document.createElement('a');
   a.setAttribute('href', link);
   a.innerText = title;
@@ -52,6 +59,7 @@ export default (state) => (
             const { id, title, description } = feed;
             p.innerText = description;
             ul.className = 'list-group col-md-10 col-lg-8 mx-auto';
+            ul.setAttribute('id', id);
             h2.innerText = title;
             const filtered = posts.filter(({ feedId }) => feedId === id);
             const postElems = filtered.map(makePost);
@@ -72,6 +80,18 @@ export default (state) => (
         updateTextMsg(text, 'danger');
       } else {
         updateTextMsg('', '');
+      }
+    }
+    if (path === 'data.posts') {
+      const { posts } = state.data;
+      const filtered = posts.filter((item) => item.statusPub === 'new');
+      if (filtered.length !== 0) {
+        const grouped = groupBy(filtered, 'feedId');
+        Object.entries(grouped).forEach(([id, items]) => {
+          const ul = document.getElementById(id);
+          const postElem = items.map(makePost);
+          ul.append(...postElem);
+        });
       }
     }
   })
