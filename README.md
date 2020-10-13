@@ -1,5 +1,4 @@
-###Проект RSS - агрегатор
-
+### Проект RSS - агрегатор
 
 ![Node CI](https://github.com/ChigorinDenis/frontend-project-lvl3/workflows/Node%20CI/badge.svg)
 ![deploy website](https://github.com/ChigorinDenis/frontend-project-lvl3/workflows/deploy%20website/badge.svg)
