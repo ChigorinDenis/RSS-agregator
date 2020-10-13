@@ -72,7 +72,12 @@ export default () => {
         watchedState.addingProcess.state = 'finished';
       })
       .catch((err) => {
+        watchedState.addingProcess.state = 'failured';
         watchedState.addingProcess.errors = [err.message];
       });
+  });
+  input.addEventListener('input', () => {
+    watchedState.addingProcess.state = 'editing';
+    watchedState.addingProcess.errors = [];
   });
 };

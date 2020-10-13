@@ -70,16 +70,17 @@ export default (state) => (
           content.append(divRow);
           break;
         }
+        case 'failured': {
+          const { errors } = state.addingProcess;
+          const [text] = errors;
+          if (errors.length !== 0) {
+            updateTextMsg(text, 'danger');
+          } else {
+            updateTextMsg('', '');
+          }
+          break;
+        }
         default: break;
-      }
-    }
-    if (path === 'addingProcess.errors') {
-      const { errors } = state.addingProcess;
-      const [text] = errors;
-      if (errors.length !== 0) {
-        updateTextMsg(text, 'danger');
-      } else {
-        updateTextMsg('', '');
       }
     }
     if (path === 'data.posts') {

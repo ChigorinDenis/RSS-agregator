@@ -37,7 +37,7 @@ const update = (state) => {
   })
     .then(() => {
       state.data.posts = [...oldPosts, ...newPosts];
-      setTimeout(() => update(state), 10000);
+      setTimeout(() => update(state), 5000);
     });
 };
 
