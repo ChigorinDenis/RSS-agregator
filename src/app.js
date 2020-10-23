@@ -14,7 +14,7 @@ const validate = (value, arr) => {
     schema.validateSync(value);
     const checkDouble = arr
       .find(({ link }) => link === value);
-    if (checkDouble === undefined) {
+    if (checkDouble !== undefined) {
       throw new Error(i18next.t('msg.errors.dublicatedLink'));
     }
     return null;
