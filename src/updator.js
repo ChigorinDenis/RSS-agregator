@@ -9,7 +9,7 @@ import axios from 'axios';
 import parser from './parser';
 import addProxyToLink from './utils';
 
-const updateFeeds = (state) => {
+const runUpdatorFeeds = (state) => {
   const { feeds, posts } = state.data;
   const { lastPostIds } = state;
   const savedPosts = posts.map((post) => (omit(post, ['id', 'feedId'])));
@@ -46,4 +46,4 @@ const updateFeeds = (state) => {
     });
 };
 
-export default updateFeeds;
+export default runUpdatorFeeds;

@@ -6,7 +6,7 @@ import identify from './identifier';
 import viewInit from './view';
 import en from './locales/en';
 import addProxyToLink from './utils';
-import updateFeeds from './updator';
+import runUpdatorFeeds from './updator';
 
 const validate = (value, feeds) => {
   const links = feeds.map(({ link }) => link);
@@ -56,7 +56,7 @@ export default () => {
   const watchedState = viewInit(state);
   const form = document.querySelector('.rss-form');
   const input = form.querySelector('input');
-  updateFeeds(watchedState);
+  runUpdatorFeeds(watchedState);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
