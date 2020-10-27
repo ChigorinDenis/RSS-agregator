@@ -42,7 +42,7 @@ const runUpdatorFeeds = (state) => {
     .then(() => {
       state.data.posts = [...posts, ...newPosts];
       state.lastPostIds = { ...lastPostIds, ...newLastPostIds };
-      setTimeout(() => updateFeeds(state), 5000);
+      setTimeout(() => runUpdatorFeeds(state), 5000);
     });
 };
 
