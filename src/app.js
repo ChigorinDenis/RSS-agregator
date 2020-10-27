@@ -1,22 +1,21 @@
 import * as yup from 'yup';
 import axios from 'axios';
 import i18next from 'i18next';
-import parser from './parser';
+import parseXML from './parser';
 import identify from './identifier';
 import viewInit from './view';
 import en from './locales/en';
 import addProxyToLink from './utils';
 import updateFeeds from './updator';
 
-const validate = (value, arr) => {
-  const schema = yup.string().url();
+const validate = (value, feeds) => {
+  const links = feeds.map(({ link }) => link);
+  const schema = yup
+    .string()
+    .url()
+    .notOneOf(links, i18next.t('msg.errors.dublicatedLink'));
   try {
     schema.validateSync(value);
-    const checkDouble = arr
-      .find(({ link }) => link === value);
-    if (checkDouble !== undefined) {
-      throw new Error(i18next.t('msg.errors.dublicatedLink'));
-    }
     return null;
   } catch (err) {
     return err.message;
@@ -46,7 +45,13 @@ export default () => {
     resources: {
       en,
     },
-  });
+  })
+    .then(() => {
+      const lead = document.querySelector('.lead');
+      const button = document.querySelector('button');
+      lead.innerHTML = i18next.t('lead');
+      button.innerHTML = i18next.t('addFeed');
+    });
 
   const watchedState = viewInit(state);
   const form = document.querySelector('.rss-form');
@@ -74,8 +79,8 @@ export default () => {
       .then((response) => {
         const { feeds, posts } = watchedState.data;
         const { lastPostIds } = watchedState;
-        const data = parser(response.data);
-        const newFeed = identify(data, link);
+        const data = parseXML(response.data);
+        const newFeed = identify(data, link); // name 'identify' is a verb(action)
         watchedState.data = {
           feeds: [newFeed.feed, ...feeds],
           posts: [...newFeed.posts, ...posts],
