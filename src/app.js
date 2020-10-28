@@ -46,11 +46,12 @@ export default () => {
       en,
     },
   })
-    .then(() => {
+    .then((t) => {
       const lead = document.querySelector('.lead');
       const button = document.querySelector('button');
-      lead.innerHTML = i18next.t('lead');
-      button.innerHTML = i18next.t('addFeed');
+      lead.innerHTML = t('lead');
+      button.innerHTML = t('addFeed');
+      console.log(t('lead'));
     });
 
   const watchedState = viewInit(state);
